@@ -1,22 +1,16 @@
 package game;
 
-import game.tank.Enemy;
-import game.tank.Player;
-import game.tank.Tank;
+import game.menu.SceneManager;
+import game.menu.SceneWelcome;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GamePanel extends JPanel {
-    Tank player;
-    Background background;
-    Tank enemy;
 
     public GamePanel() {
-        background = new Background();
-        player = new Player();
-        enemy = new Enemy();
+        SceneManager.signNewSence(new SceneWelcome());
     }
 
     public void gameLoop() {
@@ -40,29 +34,26 @@ public class GamePanel extends JPanel {
     public void paint(Graphics g) {
         for (int i = 0; i < GameObject.objects.size(); i++) {
             GameObject object = GameObject.objects.get(i);
-            if(object.active){
+            if (object.active) {
                 object.render(g);
             }
         }
+
+
     }
 
     private void runAll() {
         for (int i = 0; i < GameObject.objects.size(); i++) {
             GameObject object = GameObject.objects.get(i);
-            if(object.active){
+            if (object.active) {
                 object.run();
             }
         }
-        summonEnemies();
+
+//        summonEnemies();
     }
 
-    int summonCount;
-    int waveCount;
-    int enemyCount;
-    Random random = new Random();
-    int enemyX = 100 + random.nextInt(200);
 
-    private void summonEnemies() {
 
-    }
+
 }

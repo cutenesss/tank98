@@ -14,13 +14,17 @@ public class Program {
         GamePanel panel = new GamePanel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(Setting.GAME_WIDTH, Setting.GAME_HEIGHT));
+
         window.add(panel);
         window.setVisible(true);
-        window.setTitle("Battle city");
+        window.setTitle("Tank");
         window.setResizable(false);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Toolkit toolkit=Toolkit.getDefaultToolkit();
+        Dimension screenSize=toolkit.getScreenSize();
         window.pack();
+        window.setLocation(screenSize.width/2-window.getSize().width/2,
+                screenSize.height/2-window.getSize().height/2);
         panel.gameLoop();
-
     }
 }

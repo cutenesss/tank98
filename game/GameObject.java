@@ -4,11 +4,15 @@ import game.physics.BoxCollider;
 import game.renderer.Renderer;
 
 import java.awt.*;
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 
 public class GameObject {
     //Quan li doi tuong
+    public static int score = 0;
+
     public static ArrayList<GameObject> objects = new ArrayList<>();
+
 
     public static <E extends GameObject> E recycle(Class<E> cls) {
         E result = null;
@@ -45,11 +49,37 @@ public class GameObject {
     public static <E extends GameObject> E findIntersects(Class<E> cls, GameObject source) {
         for (int i = 0; i < objects.size(); i++) {
             GameObject object = objects.get(i);
-            if (object.getClass().isAssignableFrom(cls) && object.active && object.intersects(source))
+            if (object.getClass().isAssignableFrom(cls)
+                    && object.active
+                    && object.intersects(source)
+                    && !source.equals(object))
                 return (E) object;
         }
         return null;
     }
+
+    public static <E extends GameObject> E findIntersects(Class<E> cls, BoxCollider source) {
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject object = objects.get(i);
+            if (object.getClass().isAssignableFrom(cls) && object.active && object.hitbox.intersect(source))
+                return (E) object;
+        }
+        return null;
+    }
+
+    public static <E extends GameObject> E findIntersects(Class<E> cls, BoxCollider source, GameObject sourceObject) {
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject object = objects.get(i);
+            if (object.getClass().isAssignableFrom(cls)
+                    && object.active
+                    && object.hitbox.intersect(source)
+                    && !sourceObject.equals(object))
+                return (E) object;
+        }
+        return null;
+    }
+
+
 
     //Dinh nghia doi tuong
     public Renderer renderer;
@@ -63,9 +93,9 @@ public class GameObject {
 
     public GameObject() {
         objects.add(this);
-        this.position = new Vector2D();
+        this.position = new Vector2D(-20,-20);
         this.velocity = new Vector2D();
-        this.anchor = new Vector2D(0.5,0.5);
+        this.anchor = new Vector2D(0.5, 0.5);
         this.active = true;
     }
 
@@ -73,6 +103,11 @@ public class GameObject {
         if (renderer != null) {
             renderer.render(g, this);
         }
+    }
+
+    public static void clearAll(){
+        objects.clear();
+        score = 0;
     }
 
     public void run() {

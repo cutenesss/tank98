@@ -27,7 +27,7 @@ public class Vector2D {
     }
 
     public void substract(Vector2D other) {
-        this.add(other.x, other.y);
+        this.substract(other.x, other.y);
     }
 
     public void scale(double rate) {
@@ -75,5 +75,13 @@ public class Vector2D {
     public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

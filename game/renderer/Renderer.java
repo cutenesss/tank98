@@ -2,8 +2,6 @@ package game.renderer;
 
 import game.GameObject;
 import game.Setting;
-import game.tank.Bullet;
-import game.tank.Player;
 import tklibs.SpriteUtils;
 
 import java.awt.*;
@@ -16,7 +14,7 @@ import java.util.List;
 
 public class Renderer {
     static List<String> fileNamesRenderByDirection = Arrays.asList("Up.png", "Down.png", "Left.png", "Right.png");
-    public BufferedImage image;
+    BufferedImage image;
     BufferedImage upImage;
     BufferedImage downImage;
     BufferedImage leftImage;
